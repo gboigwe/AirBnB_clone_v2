@@ -25,13 +25,6 @@ def do_pack():
     except:
         return None
 
-def deploy():
-    """Created an archive file for the web_static deploment"""
-    archive_path = do_pack()
-    if archive_path is None:
-        return False
-    return do_deploy(archive_path)
-
 def do_deploy(archive_path):
     """Creating and deploying the archived file"""
     if exists(archive_path) is False:
@@ -51,3 +44,10 @@ def do_deploy(archive_path):
         return True
     except:
         return False
+
+def deploy():
+    """Created an archive file for the web_static deploment"""
+    archive_path = do_pack()
+    if archive_path is None:
+        return False
+    return do_deploy(archive_path)
