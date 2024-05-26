@@ -21,28 +21,28 @@ def hbnb():
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def c_text(text):
+def the_c_text(text):
     """Displays 'C' followed by the text variable"""
     return 'C {}'.format(text.replace('_', ' '))
 
 
 @app.route('/python/', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
-def python_text(text='is cool'):
+def the_python_text(text='is cool'):
     """Displays Python followed by the text variable"""
     return 'Python {}'.format(text.replace('_', ' '))
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
-def display_number(n):
+def the_display_number(n):
     """Displays 'n is a number'
     if n is an integer"""
     return '{} is a number'.format(n)
 
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
-def number_template(n):
-    """Displays an HTML page if only n is an integer"""
+def the_number_template(n):
+    """Displays an HTML page if n is an integer"""
     return render_template('5-number.html', n=n)
 
 
