@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Starting web application 
+Starting web application
 With two routes process
 """
 
