@@ -19,7 +19,9 @@ all_classes = {'State': State, 'City': City,
 
 
 class DBStorage:
-    """Class that manages MySQL storage in SQLAlchemy
+    """This class manages MySQL storage using SQLAlchemy
+
+    Attributes:
         __engine: engine object
         __session: session object
     """
@@ -27,32 +29,33 @@ class DBStorage:
     __session = None
 
     def __init__(self):
-        """Creating the engine for SQLAlchemy
+        """Create SQLAlchemy engine
         """
+        # create engine
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}:3306/{}'.
                                       format(getenv('HBNB_MYSQL_USER'),
                                              getenv('HBNB_MYSQL_PWD'),
                                              getenv('HBNB_MYSQL_HOST'),
                                              getenv('HBNB_MYSQL_DB')),
                                       pool_pre_ping=True)
-        # delete tables if test environment
+        # drop tables if test environment
         if getenv('HBNB_ENV') == 'test':
-            Base.metadata.drop_all(self.__engine)
+                Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """
-        Querying and returning objects by class/generally
+        """Query and return all objects by class/generally
         Return: dictionary (<class-name>.<object-id>: <obj>)
         """
         obj_dict = {}
 
         if cls:
             for row in self.__session.query(cls).all():
-                obj_dict.update({'{}.{}'.format(
-                    type(cls).__name__, row.id,): row})
+                # populate dict with objects from storage
+                obj_dict.update({'{}.{}'.
+                                format(type(cls).__name__, row.id,): row})
         else:
-            for key, value in all_classes.items():
-                for row in self.__session.query(value):
+            for key, val in all_classes.items():
+                for row in self.__session.query(val):
                     obj_dict.update({'{}.{}'.
                                     format(type(row).__name__, row.id,): row})
         return obj_dict
@@ -71,7 +74,7 @@ class DBStorage:
         """Delete obj from database session
         """
         if obj:
-            # determining from obj the class
+            # determine class from obj
             cls_name = all_classes[type(obj).__name__]
 
             # query class table and delete
