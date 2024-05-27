@@ -11,13 +11,6 @@ from os import environ
 app = Flask(__name__)
 
 
-@app.teardown_appcontext
-def the_app_tearown_db(arg=None):
-    """Removig current session of SQLAlchemy
-    """
-    storage.close()
-
-
 @app.route('/states_list')
 def states_list():
     """Displaying the list of an HTML page in State objects"""
@@ -26,6 +19,13 @@ def states_list():
     # sort State object alphabetically by name
     sorted_states = sorted(states.values(), key=lambda state: state.name)
     return render_template(path, sorted_states=sorted_states)
+
+
+@app.teardown_appcontext
+def the_app_tearown_db(arg=None):
+    """Removig current session of SQLAlchemy
+    """
+    storage.close()
 
 
 if __name__ == '__main__':
