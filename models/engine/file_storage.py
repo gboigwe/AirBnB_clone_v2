@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-The class for the 
+The class for the
 AirBnB file storage
 """
 import json

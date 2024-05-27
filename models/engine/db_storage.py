@@ -37,7 +37,7 @@ class DBStorage:
                                       pool_pre_ping=True)
         # delete tables if test environment
         if getenv('HBNB_ENV') == 'test':
-                Base.metadata.drop_all(self.__engine)
+            Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """
