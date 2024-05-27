@@ -9,11 +9,10 @@ from os import environ
 
 
 app = Flask(__name__)
-app.url_map.strict_slashes = False
 
 
 @app.teardown_appcontext
-def tearown_db(exception):
+def the_app_tearown_db(arg=None):
     """Removig current session of SQLAlchemy
     """
     storage.close()
@@ -30,4 +29,5 @@ def states_list():
 
 
 if __name__ == '__main__':
+    app.url_map.strict_slashes = False
     app.run(host='0.0.0.0', port=5000)
