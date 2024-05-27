@@ -1,17 +1,19 @@
 #!/usr/bin/python3
-"""Start web application with two routings
 """
-
+Code to run web templateon flask with port 0.0.0.0:5000
+"""
+from flask import Flask, render_template
 from models import storage
 from models.state import State
-from flask import Flask, render_template
+from os import environ
+
+
 app = Flask(__name__)
 
 
 @app.route('/states_list')
 def states_list():
-    """Render template with states
-    """
+    """Displaying the list of an HTML page in State objects"""
     path = '7-states_list.html'
     states = storage.all(State)
     # sort State object alphabetically by name
@@ -20,8 +22,8 @@ def states_list():
 
 
 @app.teardown_appcontext
-def app_teardown(arg=None):
-    """Clean-up session
+def the_app_tearown_db(arg=None):
+    """Removig current session of SQLAlchemy
     """
     storage.close()
 
